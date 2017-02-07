@@ -44,7 +44,8 @@ particle properties provided by the Particle Data Group
 the traditional (unfolded and background-subtracted) measurements to also
 include data relevant for ``recasting'' LHC searches for physics beyond the
 Standard Model (BSM).  The scope of HEPData is also being broadened to include
-data from particle decays and neutrino experiments, and potentially low-energy data relevant for tuning of the Geant4 detector simulation toolkit.
+data from particle decays and neutrino experiments, and potentially low-energy
+data relevant for tuning of the Geant4 detector simulation toolkit.
 
 The HEPData project last underwent a major redevelopment around a decade
 ago~\cite{Buckley:2010jn}, as part of the work of the CEDAR
@@ -103,7 +104,8 @@ in figure~\ref{fig:record}.
 As with the previous HepData site, the main added value of storing the data in
 a standard format is that the data points can be automatically converted to
 various formats (see section~\ref{sec:conversion}) and visualised.  Tables and
-scatter plots, or heatmap plots if there is more than one independent variable, are rendered with custom JavaScript code making use of the D3.js library
+scatter plots, or heatmap plots if there is more than one independent variable,
+are rendered with custom JavaScript code making use of the D3.js library
 (\url{https://d3js.org}), with options to switch on and off various elements.
  Auxiliary files, such as the original ATLAS plot shown in the top-right of
 figure~\ref{fig:record}, can be attached or linked to either individual tables
@@ -148,6 +150,12 @@ figure~\ref{fig:explore}.
   \caption{\label{fig:explore}Screenshot of an alternative data-driven query
 module for HEPData.}
 \end{figure}
+%
+This
+\href{https://github.com/HEPData/hepdata-explore}{\texttt{hepdata-explore}}
+package offers the possibility for a user to filter data from multiple
+publications, producing composite plots, with the ability to download numerical
+values.
 
 In 2012, a first attempt was made to integrate the old HepData site with the
 Inspire HEP literature database (\url{http://inspirehep.net}) by harvesting the
@@ -174,8 +182,8 @@ site all have a JSON equivalent; see figure~\ref{fig:programmatic}.
     \includegraphics[width=0.5\textwidth]{Figures/programmatic_content.pdf}
     \hspace{2pc}%
     \begin{minipage}[b]{14pc}
-      \caption{\label{fig:programmatic}Diagram showing programmatic access and
-export formats.  Search results, record display, and data tables can be
+      \caption{\label{fig:programmatic}Diagram illustrating programmatic access
+and export formats.  Search results, record display, and data tables can all be
 obtained in a JSON format.  Data tables can be exported in either the native
 YAML format, or converted to alternative CSV, ROOT and YODA formats.}
     \end{minipage}
@@ -196,12 +204,13 @@ tables (see \href{http://github.com/HEPData/hepdata-submission}{\texttt{hepdata-
 simple text format consisting of comma-separated values, which can be imported
 into many widely-used applications such as an Excel spreadsheet.
 \item [\href{https://root.cern.ch}{ROOT}] A binary \texttt{.root} file rather
-than a CINT script, with each table in a separate directory.  For numeric data,
-a \texttt{TGraphAsymmErrors} object is written for each dependent variable.  If
-the data has finite bin widths, then also separate \texttt{TH1F} objects are
-written for the central value of the data points and each of the uncertainties.
- If there is more than one independent variable, the appropriate ROOT object
-(\texttt{TH2F} or \texttt{TH3F}) is chosen instead of a \texttt{TH1F} object.
+than a \href{https://root.cern.ch/cint}{CINT} script, with each table in a
+separate directory.  For numeric data, a \texttt{TGraphAsymmErrors} object is
+written for each dependent variable.  If the data has finite bin widths, then
+also separate \texttt{TH1F} objects are written for the central value of the
+data points and each of the uncertainties.  If there is more than one
+independent variable, the appropriate ROOT object (\texttt{TH2F} or
+\texttt{TH3F}) is chosen instead of a \texttt{TH1F} object.
 \item [\href{https://yoda.hepforge.org}{YODA}] The data analysis classes used
 in the \href{https://rivet.hepforge.org}{Rivet} toolkit~\cite{Buckley:2010ar}.
  Again, the appropriate YODA object (\texttt{Scatter1D}, \texttt{Scatter2D},
@@ -210,12 +219,13 @@ in a table.
 \end{description}
 %
 The HEPData DOIs are written to the various output formats to allow a user to
-later track the origin of the downloaded data points.  A further package runs
-the converter as a web service, which is deployed inside a
+later track the origin of the downloaded data points.  A further package,
+\href{https://github.com/HEPData/hepdata-converter-ws}{\texttt{hepdata-converter-ws}},
+runs the converter as a web service, which is deployed inside a
 \href{https://www.docker.com}{Docker} container including dependencies such as
 the \href{https://root.cern.ch}{ROOT} and
 \href{https://yoda.hepforge.org}{YODA} packages.  Data can be accessed from a
-script via predictable URLs, for example,
+user's script via predictable URLs, for example,
 %
 \begin{verbatim}
 https://hepdata.net/record/ins1283842?format=yaml&table=Table1&version=1
@@ -271,7 +281,13 @@ Prospective Coordinators should select the ``Request Coordinator Privileges''
 option from their Dashboard and enter the name of the experiment/group that
 they wish to coordinate.  The request requires approval from the HEPData Admin
 staff.  A list of current Coordinators can be seen at
-\url{https://hepdata.net/permissions/coordinators}.
+\url{https://hepdata.net/permissions/coordinators}.  A logged-in user can
+``Watch'' individual records to be notified by email of future revisions and a
+user's ``Watch List'' is also accessible from their Dashboard; see
+figure~\ref{fig:dashboard}.  An ``Ask a Question'' widget on each record allows
+any logged-in user to send an email to the submission participants (or to the
+Admin for migrated records) in order to point out mistakes or ask for
+clarification.
 
 The Coordinator initiates a new submission by clicking the ``Submit'' button
 after logging in, then entering either the Inspire
@@ -338,7 +354,7 @@ the user who created it) when it is no longer required.
 \section{Future plans}
 
 While HEPData has so far only been used for data associated with experimental
-particle physics papers, it could also be used to store numerical values of
+particle physics papers, it could easily be used to store numerical values of
 theoretical predictions and related material from particle physics
 phenomenology papers, without any necessary changes to the software or
 submission workflow.  There is potential to store low-energy data from nuclear,
@@ -375,8 +391,8 @@ infrastructure, but still managed remotely from Durham.  The transition from
 the old site (\url{http://hepdata.cedar.ac.uk}) has effectively been completed,
 with all data records being migrated to the new site.  The new submission
 system offers a variety of improvements compared to the old one, and it has
-successfully been used for external data submissions starting in January
-2017.  The old site hosted at Durham will be switched off in the near future.
+successfully been used for external data submissions from January 2017
+onwards.  The old site hosted at Durham will be switched off in the near future.
 
 In conclusion, the new HEPData site provides a state-of-the-art web platform
 for particle physicists to make their data \emph{Findable}, \emph{Accessible},
@@ -391,9 +407,9 @@ THOR project, funded by the European Commission under the Horizon 2020
 programme.  We are indebted to Mike Whalley for his dedicated 34 years of
 service as Database Manager for previous incarnations of the HEPData project,
 and for his assistance in migrating the data to the new platform.  We thank
-Kyle Cranmer, S\"unje Dallmeier-Tiessen, Frank Krauss, Salvatore Mele, Laura
-Rueda and Jan Stypka for their various contributions during the redevelopment
-process.
+Alicia Boya Garc\'{i}a, Kyle Cranmer, S\"unje Dallmeier-Tiessen, Frank Krauss,
+Salvatore Mele, Laura Rueda, Jan Stypka and Micha\l{} Szostak for their various
+contributions during the redevelopment process.
 
 \section*{References}
 \bibliography{chep2016_hepdata}
