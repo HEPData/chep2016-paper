@@ -43,7 +43,7 @@ particle properties provided by the Particle Data Group
 (\url{http://www-pdg.lbl.gov}).  In recent years HEPData has expanded beyond
 the traditional (unfolded and background-subtracted) measurements to also
 include data relevant for ``recasting'' LHC searches for physics beyond the
-Standard Model (BSM).  The scope of HEPData is also being broadened to include
+Standard Model.  The scope of HEPData is also being broadened to include
 data from particle decays and neutrino experiments, and potentially low-energy
 data relevant for tuning of the Geant4 detector simulation toolkit.
 
@@ -76,14 +76,17 @@ since only the metadata (and not the actual data points) needs to be made
 searchable.  Rather than retaining the old \emph{ad hoc} ``input'' text format,
 we defined a new text format
 (\url{http://github.com/HEPData/hepdata-submission}) using YAML
-(\url{http://yaml.org}), which is similar to JSON but more human-readable.  We
+(\url{http://yaml.org}), which is a superset of JSON that is more
+human-readable.  We
 investigated the possibility of a new universal input format using ROOT
 (\url{https://root.cern.ch}), but it was not suited to representing all of the
 diverse data types already present in HepData, particularly the metadata that
 describe each of the tables.  All data from the existing HepData database was
 then exported to the new YAML format for migration to the new system.  A
 validator (\url{http://github.com/HEPData/hepdata-validator}) was also written
-to ensure that the YAML files conform to the defined schema.  Migrated YAML
+to ensure that the YAML/JSON files conform to the defined
+\href{https://github.com/HEPData/hepdata-validator/tree/master/hepdata_validator/schemas}{JSON schema}.
+ Migrated YAML
 files (and future submitted files) are stored on the CERN EOS file system.
 
 \section{Software}
@@ -131,8 +134,8 @@ shown in figure~\ref{fig:search}.
 site.}
 \end{figure}
 %
-More specific searches on keywords such as \emph{cmenergies},
-\emph{observables}, \emph{phrases} and \emph{reactions} are also possible.
+More specific searches on keywords such as \verb+cmenergies+,
+\verb+observables+, \verb+phrases+ and \verb+reactions+ are also possible.
  Faceted search is implemented for certain fields; see the left-hand panel in
 figure~\ref{fig:search}.  All content in HEPData is semantically enriched using
 \href{https://schema.org/}{\emph{Schema.org}} vocabulary.  This means that
@@ -242,7 +245,7 @@ The new HEPData submission flowchart is shown in figure~\ref{fig:submission}.
 %
 \begin{figure}
   \begin{center}
-    \includegraphics[width=\textwidth, trim=0 100 0 0]{Figures/submission_flow_updated.pdf}
+    \includegraphics[width=\textwidth]{Figures/submission_flow_updated.pdf}
   \end{center}
   \caption{\label{fig:submission}Submission flowchart for the new HEPData site.}
 \end{figure}
@@ -364,20 +367,22 @@ software development may first be needed to support keywords specific to the
 low-energy data and to support creation of records where the associated
 publications do not appear in the Inspire HEP literature database.
 
-In future we plan to support a mixed YAML/ROOT input format where metadata is
+In future we plan to support a
+\href{https://github.com/lukasheinrich/hepdata-rootcnv}{mixed YAML/ROOT input format}
+where metadata is
 provided in YAML files (as before), but numerical values are extracted from
 ROOT objects and converted to the standard YAML format.
- HistFactory~\cite{Cranmer:1456844} is a framework used for many ATLAS BSM (and
-Higgs) analyses, based on ROOT histograms organised by XML files which specify
-the different channels, the signal and background samples, and (correlated)
-systematic uncertainties associated with these samples.  Some preliminary work
-has been done to extract HEPData tables in the standard YAML format from a
-HistFactory configuration.  A more ambitious idea would be to define custom
-data types beyond a simple table, such that the HistFactory configuration could
-be stored directly without loss of information.  A first step has been taken in
-this direction by allowing custom JSON schema to be specified in the
-\href{https://github.com/HEPData/hepdata-validator}{\texttt{hepdata-validator}}
-package.
+ HistFactory~\cite{Cranmer:1456844} is a framework used in many ATLAS studies
+for statistical analysis (such as determining exclusion contours).  It encodes
+the full likelihood (including systematic uncertainties) of a measurement
+using semantic XML and histograms stored in ROOT files.  Some
+\href{https://github.com/lukasheinrich/histfactory-cnvtools}{preliminary work}
+has been done to extract HEPData tables in the standard YAML format directly
+from a HistFactory configuration.  Furthermore, work has begun on expanding the
+set of natively supported data types beyond a simple table to allow for richer
+datasets such as HistFactory configurations or simplified
+likelihoods~\cite{CMS:2242860}.  The archival of such likelihood data
+in a lossless format could then be used by various reinterpretation packages.
 
 \section{Summary}
 
@@ -390,9 +395,8 @@ with a very large degree of customisation.  The new site
 infrastructure, but still managed remotely from Durham.  The transition from
 the old site (\url{http://hepdata.cedar.ac.uk}) has effectively been completed,
 with all data records being migrated to the new site.  The new submission
-system offers a variety of improvements compared to the old one, and it has
-successfully been used for external data submissions from January 2017
-onwards.  The old site hosted at Durham will be switched off in the near future.
+system has successfully been used for external data submissions from January
+2017 onwards.
 
 In conclusion, the new HEPData site provides a state-of-the-art web platform
 for particle physicists to make their data \emph{Findable}, \emph{Accessible},
